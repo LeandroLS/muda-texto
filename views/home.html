@@ -112,7 +112,7 @@
                 this.textChanged = this.text.toLowerCase()
             },
             capitalized: function () {
-                this.textChanged = this.text.split(' ').map(el => el.charAt(0).toUpperCase() + el
+                this.textChanged = this.text.split(' ').join(', ').split('\n').join(', ').split(', ').map(el => el.charAt(0).toUpperCase() + el
                         .toLowerCase().slice(1))
                     .join(' ')
             },

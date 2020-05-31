@@ -10,6 +10,7 @@ nunjucks.configure('views', {
 function wwwRedirect(req, res, next) {
     if(process.env.AMBIENTE == 'production'){
         let host = req.headers.host;
+        console.log(req.protocol);
         if (host.slice(0, 4) === 'www.' && (req.protocol === 'http' || req.protocol === 'https')) {
             let newHost = host.slice(4);
             return res.redirect(301, 'https://' + newHost + req.originalUrl);
@@ -19,6 +20,7 @@ function wwwRedirect(req, res, next) {
     }
     next();
 };
+app.set('trust proxy', true);
 app.use(wwwRedirect);
 app.set('views', './views')
 app.get('/', (req, res) => res.render('home.html'))

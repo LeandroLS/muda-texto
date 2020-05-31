@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://convertexto.com/sitemap.xml

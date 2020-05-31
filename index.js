@@ -1,7 +1,6 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
-require('dotenv').config()
 app.use(express.static('public'))
 const port = 3000
 nunjucks.configure('views', {

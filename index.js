@@ -2,7 +2,7 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
 app.use(express.static('public'))
-const port = 80
+const port = 3000
 nunjucks.configure('views', {
     autoescape: true,
     express: app

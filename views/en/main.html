@@ -1,18 +1,7 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134144408-5"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'UA-134144408-5');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
@@ -20,7 +9,6 @@
     <!-- <link rel="canonical" href="https://convertexto.com" /> -->
     {% include "templates/href-lang.html" %}
     <title>{{ language.title }}</title>
-    <meta name="google-site-verification" content="nTDaGOpBqvrdGs-NNkFjip0m_anvygpAG0SbucpJAl0" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -63,68 +51,68 @@
         </header>
         <div class="row">
             <div class="col-sm-6">
-                <h3>Seu Texto</h3>
+                <h3>Your Text</h3>
                 <textarea class="form-control" v-model="text" name="" id="" cols="30" rows="10"></textarea>
                 <div class="row mt-2">
                     <div class="col-sm-4">
-                        <p><strong>Caracteres</strong> : [[ qtdCharacters ]]</p>
+                        <p><strong>Characters</strong> : [[ qtdCharacters ]]</p>
                     </div>
                     <div class="col-sm-4">
-                        <p><strong>Palavras</strong> : [[ qtdWords ]] </p>
+                        <p><strong>Words</strong> : [[ qtdWords ]] </p>
                     </div>
                     <div class="col-sm-4">
-                        <p><strong>Linhas</strong> : [[ qtdLines ]]</p>
+                        <p><strong>Lines</strong> : [[ qtdLines ]]</p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 mb-2">
-                <h3>Resultado</h3>
+                <h3>Result</h3>
                 <textarea class="form-control" id="result" cols="30" rows="10" v-html="textChanged"></textarea>
                 <!-- <div class="editable" id="editable" :class="font" contenteditable="true">
                     </div> -->
             </div>
         </div>
 
-        <button class="mr-2 mb-2 btn btn-primary" @click="reverseText">Reverso</button>
+        <button class="mr-2 mb-2 btn btn-primary" @click="reverseText">Reverse</button>
 
-        <button class="mr-2 mb-2 btn  btn-primary" @click="toUpper">MAIÚSCULAS</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="toLower">minúsculas</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="capitalized">Texto Capitalizado</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="alterned">aLtErNaDo</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toUpper">UPPER CASE</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toLower">lower case</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="capitalized">Capitalized Case</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="alterned">AlTeRnAtInG</button>
         <!-- <button class="mr-2 mb-2 btn  btn-primary" @click="title">Título</button> -->
-        <button class="mr-2 mb-2 btn  btn-primary" @click="invert">Inverter minúsculo/MAIÚSCULO</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="upsideDown"> De cabeça pra baixo</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="invert">Reverse lower case/UPPER CASE</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="upsideDown"> Upside down</button>
         <!-- <button @click="negrito"><b>Negrito</b></button>
             <button class="mr-2 mb-2 btn  btn-primary" @click="italic"><i>Itálico</i></button>
             <button class="mr-2 mb-2 btn  btn-primary" @click="underline"><u>Sublinhado</u></button> -->
-        <button class="mr-2 mb-2 btn  btn-success" data-clipboard-target="#result" id="copiar">Copiar</button>
-        <button class="mr-2 mb-2 btn  btn-danger" @click="apagar">Apagar</button>
+        <button class="mr-2 mb-2 btn  btn-success" data-clipboard-target="#result" id="copiar">Copy</button>
+        <button class="mr-2 mb-2 btn  btn-danger" @click="apagar">Clear</button>
 
         <hr>
-        <p><strong>Reverso</strong></p>
-        <p>Reverte um texto. Por exemplo: ABCDE vira EDCBA</p>
+        <p><strong>Reverse</strong></p>
+        <p>Reverses a text. For example: ABCDE becomes EDCBA</p>
         <hr>
-        <p><strong>MAIÚSCULAS</strong></p>
-        <p>Deixa todo um texto em maiúsculo. Por exemplo: abcde vira ABCDE</p>
+        <p><strong>UPPER CASE</strong></p>
+        <p>Capitalize a whole text. For example: abcde becomes ABCDE</p>
         <hr>
-        <p><strong>minúsculas</strong></p>
-        <p>Deixa todo um texto em minúsculo. Por exemplo: ABCDE vira abcde</p>
+        <p><strong>lower case</strong></p>
+        <p>Leaves all text in lowercase. For example: ABCDE becomes abcde</p>
         <hr>
-        <p><strong>Texto Capitalizado</strong></p>
-        <p>Deixa toda palavra do texto com a primeira letra maiúscula. Por exemplo, o texto 'adoro o site
+        <p><strong>Capitalized Case</strong></p>
+        <p>Make every word in the text capitalized by the first letter. For example, the text 'I love the site
             convertexto.com'
-            vira 'Adoro O Site Convertexto.com'</p>
+            becomes 'I Love The Convertexto.com Site'
+        </p>
         <hr>
-        <p><strong>TeXtO aLtErNaDo</strong></p>
-        <p>Alterna entre letras maiúsculas e minúsculas. Por exemplo, o texto 'adoro o site convertexto.com' vira 'aDoRo
-            o
-            sItE CoNvErTeXtO.CoM'</p>
+        <p><strong>AlTeRnAtInG</strong></p>
+        <p>Switch between uppercase and lowercase letters. For example, the text 'I love the website convertexto.com'
+            becomes 'i lOvE ThE WeBsItE CoNvErTeXtO.CoM'</p>
         <hr>
-        <p><strong>Inverter minúsculo/MAIÚSCULO</strong></p>
-        <p>Inverte entre minúsculo e maiúsculo. Por exemplo: ABcdE vira abCDe</p>
+        <p><strong>Reverse lower case/UPPER CASE</strong></p>
+        <p>Invert between lowercase and uppercase. For example: ABcdE becomes abCDe</p>
         <hr>
-        <p><strong>De cabeça pra baixo</strong></p>
-        <p>Deixa o texto de ponta cabeça. Por exemplo, o texto 'adoro o site convertexto.com' vira 'ɐpoɹo o sᴉʇǝ
+        <p><strong>Upside down</strong></p>
+        <p>Leave the text upside down. For example, the text 'I love the site convertexto.com' becomes 'I loʌǝ ʇɥǝ sᴉʇǝ
             ɔouʌǝɹʇǝxʇo˙ɔoɯ'</p>
         <hr>
     </div>

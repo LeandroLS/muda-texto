@@ -20,8 +20,21 @@ function wwwRedirect(req, res, next) {
     }
     next();
 };
+languages = require('./languages')
 app.set('trust proxy', true);
 app.use(wwwRedirect);
 app.set('views', './views')
-app.get('/', (req, res) => res.render('home.html'))
+
+app.get('/:country?', (req, res) => {
+    if(req.params.country){
+        let pais = req.params.country
+        let countryText = Object.keys(languages).filter(el => {
+            return el == pais
+        });
+        if(countryText.length >= 1){
+            return res.render(pais+'/main.html', { language: languages[countryText]})
+        }
+    }
+    return res.render('main.html', { language: languages.pt})
+});
 app.listen(port, () => console.log(`Convertexto listening at http://localhost:${port}`))

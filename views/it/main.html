@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="{{ language.description }}" />
+    <!-- <link rel="canonical" href="https://convertexto.com" /> -->
+    {% include "templates/href-lang.html" %}
+    <title>{{ language.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <style>
+        div.editable {
+            width: 300px;
+            height: 200px;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+    </style>
+    <div class="container bg-light" id="quantidade-caracteres">
+        <header>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>Convertexto.com</h1>
+                </div>
+                <div class="col-sm-6">
+                    {% include "templates/language-buttons.html" %}
+                </div>
+            </div>
+        </header>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Il tuo testo</h3>
+                <textarea class="form-control" v-model="text" name="" id="" cols="30" rows="10"></textarea>
+                <div class="row mt-2">
+                    <div class="col-sm-4">
+                        <p><strong>Characters</strong> : [[ qtdCharacters ]]</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><strong>Words</strong> : [[ qtdWords ]] </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p><strong>Lines</strong> : [[ qtdLines ]]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 mb-2">
+                <h3>Risultato</h3>
+                <textarea class="form-control" id="result" cols="30" rows="10" v-html="textChanged"></textarea>
+                <!-- <div class="editable" id="editable" :class="font" contenteditable="true">
+                    </div> -->
+            </div>
+        </div>
+        <button class="mr-2 mb-2 btn btn-primary" @click="reverseText">Inversione</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toUpper">MAIUSCOLO</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toLower">minuscollo</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="capitalized">Testo In Maiuscolo</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="alterned">AlTeRnAtO</button>
+        <!-- <button class="mr-2 mb-2 btn  btn-primary" @click="title">Título</button> -->
+        <button class="mr-2 mb-2 btn  btn-primary" @click="invert">Inverti lettere minuscole / MAIUSCOLO</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="upsideDown"> Sottosopra</button>
+        <!-- <button @click="negrito"><b>Negrito</b></button>
+            <button class="mr-2 mb-2 btn  btn-primary" @click="italic"><i>Itálico</i></button>
+            <button class="mr-2 mb-2 btn  btn-primary" @click="underline"><u>Sublinhado</u></button> -->
+        <button class="mr-2 mb-2 btn  btn-success" data-clipboard-target="#result" id="copiar">Copia</button>
+        <button class="mr-2 mb-2 btn  btn-danger" @click="apagar">Elimina</button>
+
+        <hr>
+        <p><strong>Inversione</strong></p>
+        <p>Inverte un testo. Ad esempio: ABCDE diventa EDCBA</p>
+        <hr>
+        <p><strong>MAIUSCOLO</strong></p>
+        <p>Capitalizzare il testo completo. Ad esempio: abcde se convête en ABCDE</p>
+        <hr>
+        <p><strong>minuscollo</strong></p>
+        <p>Lascia tutto il testo in minuscolo. Ad esempio: ABCDE diventa abcde</p>
+        <hr>
+        <p><strong>Testo In Maiuscolo</strong></p>
+        <p>Rendi ogni parola nel testo in maiuscolo con la prima lettera. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "Adoro Il Sito Convertexto.com"
+        </p>
+        <hr>
+        <p><strong>AlTeRnAtO</strong></p>
+        <p>Passa tra lettere maiuscole e minuscole. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "aDoRo iL SiTo cOnVeRtExTo.cOm"</p>
+        <hr>
+        <p><strong>Inverti lettere minuscole / MAIUSCOLO</strong></p>
+        <p>Inverti tra lettere minuscole e maiuscole. Ad esempio: ABcdE diventa abCDe</p>
+        <hr>
+        <p><strong>Sottosopra</strong></p>
+        <p>Lascia il testo sottosopra. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "∀poɹo ᴉl sᴉʇo ɔouʌǝɹʇǝxʇo˙ɔoɯ"</p>
+        <hr>
+    </div>
+    <script src="/clipboard.min.js"></script>
+    <script src="/upsidedown.js"></script>
+    <script>
+        new ClipboardJS('#copiar');
+        let vue = new Vue({
+            el: '#quantidade-caracteres',
+            data: {
+                text: '',
+                textChanged: '',
+                font: {
+                    bold: false,
+                    italic: false,
+                    underline: false
+                }
+            },
+            methods: {
+                reverseText: function () {
+                    this.textChanged = this.text.split('').reverse().join('')
+                },
+                toUpper: function () {
+                    this.textChanged = this.text.toUpperCase()
+                },
+                toLower: function () {
+                    this.textChanged = this.text.toLowerCase()
+                },
+                capitalized: function () {
+                    this.textChanged = this.text.split(' ').join(', ').split('\n').join(', ').split(', ')
+                        .map(el => el.charAt(0).toUpperCase() + el
+                            .toLowerCase().slice(1))
+                        .join(' ')
+                },
+                alterned: function () {
+                    this.textChanged = this.text.split('').map((el, idx) => {
+                        return idx % 2 == 0 ? el.toLowerCase() : el.toUpperCase()
+                    }).join('')
+                },
+                title: function () {
+                    this.textChanged = this.text.split(' ').map(el => {
+                        if (el.length == 1) {
+                            return el.toLowerCase()
+                        } else {
+                            return el.charAt(0).toUpperCase() + el.slice(1)
+                        }
+                    }).join(' ')
+                },
+                invert: function () {
+                    this.textChanged = this.text.split('').map(el => {
+                        if (el === el.toUpperCase()) {
+                            return el.toLowerCase()
+                        } else {
+                            return el.toUpperCase()
+                        }
+                    }).join('')
+                },
+                apagar: function () {
+                    this.text = ''
+                    this.textChanged = ''
+                },
+                upsideDown: function () {
+                    this.textChanged = this.text.split('').map(el => {
+                        var upsideDownCharacter = characters.find(element => Object.keys(element)[
+                                0] ===
+                            el);
+                        if (upsideDownCharacter) {
+                            return upsideDownCharacter[Object.keys(upsideDownCharacter)]
+                        } else {
+                            return el
+                        }
+                    }).join('');
+                },
+                negrito: function () {
+                    this.textChanged = this.text
+                    this.font.bold = true
+                },
+                italic: function () {
+                    this.textChanged = this.text
+                    this.font.italic = true
+                },
+                underline: function () {
+                    this.textChanged = this.text
+                    this.font.underline = true
+                }
+            },
+            computed: {
+                qtdCharacters: function () {
+                    return this.text.split('').length
+                },
+                qtdWords: function () {
+                    let wordsArr = this.text.split(' ').join(', ').split('\n').join(', ').split(', ')
+                    let wordArrCleaned = wordsArr.filter((el, idx) => {
+                        if (el != ' ' && el !== '' && el.length >= 1) return el
+                    })
+                    return wordArrCleaned.length
+                },
+                qtdLines: function () {
+                    var count = (this.text.match(/\n/g) || []).length
+                    return count
+                }
+            },
+            delimiters: ['[[', ']]']
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>

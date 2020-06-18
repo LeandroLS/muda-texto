@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -9,13 +9,13 @@
     <!-- <link rel="canonical" href="https://convertexto.com" /> -->
     {% include "templates/href-lang.html" %}
     <title>{{ language.title }}</title>
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
-
     <div class="container bg-light" id="quantidade-caracteres">
         <header>
             <div class="row">
@@ -29,63 +29,69 @@
         </header>
         <div class="row">
             <div class="col-sm-6">
-                <h3>Il tuo testo</h3>
+                <h3>Ton Texte</h3>
                 <textarea class="form-control" v-model="text" name="" id="" cols="30" rows="10"></textarea>
                 <div class="row mt-2">
                     <div class="col-sm-4">
-                        <p><strong>Numero di caratteri</strong> : [[ qtdCharacters ]]</p>
+                        <p><strong>Caractères</strong> : [[ qtdCharacters ]]</p>
                     </div>
                     <div class="col-sm-4">
-                        <p><strong>Parole</strong> : [[ qtdWords ]] </p>
+                        <p><strong>Mots</strong> : [[ qtdWords ]] </p>
                     </div>
                     <div class="col-sm-4">
-                        <p><strong>Linee</strong> : [[ qtdLines ]]</p>
+                        <p><strong>Lignes</strong> : [[ qtdLines ]]</p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 mb-2">
-                <h3>Risultato</h3>
+                <h3>Résultat</h3>
                 <textarea class="form-control" id="result" cols="30" rows="10" v-html="textChanged"></textarea>
                 <!-- <div class="editable" id="editable" :class="font" contenteditable="true">
                     </div> -->
             </div>
         </div>
-        <button class="mr-2 mb-2 btn btn-primary" @click="reverseText">Inversione</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="toUpper">MAIUSCOLO</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="toLower">minuscollo</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="capitalized">Testo In Maiuscolo</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="alterned">AlTeRnAtO</button>
+
+        <button class="mr-2 mb-2 btn btn-primary" @click="reverseText">Inverser</button>
+
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toUpper">MAJUSCULES</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="toLower">minuscule</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="capitalized">Texte En Majuscule</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="alterned">aLtErNaDo</button>
         <!-- <button class="mr-2 mb-2 btn  btn-primary" @click="title">Título</button> -->
-        <button class="mr-2 mb-2 btn  btn-primary" @click="invert">Inverti lettere minuscole / MAIUSCOLO</button>
-        <button class="mr-2 mb-2 btn  btn-primary" @click="upsideDown"> Sottosopra</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="invert">Inverser les minuscules / MAJUSCULES</button>
+        <button class="mr-2 mb-2 btn  btn-primary" @click="upsideDown"> À l'envers</button>
         <!-- <button @click="negrito"><b>Negrito</b></button>
             <button class="mr-2 mb-2 btn  btn-primary" @click="italic"><i>Itálico</i></button>
             <button class="mr-2 mb-2 btn  btn-primary" @click="underline"><u>Sublinhado</u></button> -->
-        <button class="mr-2 mb-2 btn  btn-success" data-clipboard-target="#result" id="copiar">Copia</button>
-        <button class="mr-2 mb-2 btn  btn-danger" @click="apagar">Elimina</button>
+        <button class="mr-2 mb-2 btn  btn-success" data-clipboard-target="#result" id="copiar">Copie</button>
+        <button class="mr-2 mb-2 btn  btn-danger" @click="apagar">Supprimer</button>
 
         <hr>
-        <p><strong>Inversione</strong></p>
-        <p>Inverte un testo. Ad esempio: ABCDE diventa EDCBA</p>
+        <p><strong>Inverser</strong></p>
+        <p>
+            Inverse un texte. Par exemple: ABCDE devient EDCBA</p>
         <hr>
-        <p><strong>MAIUSCOLO</strong></p>
-        <p>Capitalizzare il testo completo. Ad esempio: abcde se convête en ABCDE</p>
+        <p><strong>MAJUSCULES</strong></p>
+        <p>Mettez un texte entier en majuscule. Par exemple: abcde devient ABCDE</p>
         <hr>
-        <p><strong>minuscollo</strong></p>
-        <p>Lascia tutto il testo in minuscolo. Ad esempio: ABCDE diventa abcde</p>
+        <p><strong>minuscule</strong></p>
+        <p>Laisse tout le texte en minuscules. Par exemple: ABCDE devient abcde</p>
         <hr>
-        <p><strong>Testo In Maiuscolo</strong></p>
-        <p>Rendi ogni parola nel testo in maiuscolo con la prima lettera. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "Adoro Il Sito Convertexto.com"
-        </p>
+        <p><strong>Texte En Majuscule</strong></p>
+        <p>Mettez chaque mot du texte en majuscule par la première lettre. Par exemple, le texte «J'aime le site
+            convertexto.com »
+            devient «J'aime Le Site Convertexto.com»</p>
         <hr>
-        <p><strong>AlTeRnAtO</strong></p>
-        <p>Passa tra lettere maiuscole e minuscole. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "aDoRo iL SiTo cOnVeRtExTo.cOm"</p>
+        <p><strong>aLtErNaDo</strong></p>
+        <p>Basculez entre les majuscules et les minuscules. Par exemple, le texte «J'aime le site convertexto.com» devient «j'aImE Le sItE CoNvErTeXtO.CoM »</p>
         <hr>
-        <p><strong>Inverti lettere minuscole / MAIUSCOLO</strong></p>
-        <p>Inverti tra lettere minuscole e maiuscole. Ad esempio: ABcdE diventa abCDe</p>
+        <p><strong>Inverser les minuscules / MAJUSCULES</strong></p>
+        <p>
+            Inversez entre les minuscules et les majuscules. Par exemple: ABcdE devient abCDe</p>
         <hr>
-        <p><strong>Sottosopra</strong></p>
-        <p>Lascia il testo sottosopra. Ad esempio, il testo "Adoro il sito convertexto.com" diventa "∀poɹo ᴉl sᴉʇo ɔouʌǝɹʇǝxʇo˙ɔoɯ"</p>
+        <p><strong>À l'envers</strong></p>
+        <p>
+            Laissez le texte à l'envers. Par exemple, le texte «J'aime le site convertexto.com» devient «ſ'ɐᴉɯǝ lǝ sᴉʇǝ ɔouʌǝɹʇǝxʇo˙ɔoɯ »</p>
         <hr>
     </div>
     <script src="/clipboard.min.js"></script>

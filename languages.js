@@ -14,6 +14,10 @@ var languages = {
         it: {
             title: 'Converti testo - Conversione testo',
             description: 'Conversione di testo tra lettere minuscole e maiuscole, testo inverso, sottosopra, testo audio, contatore di lettere e molto altro.'
+        },
+        fr: {
+            title: 'Convertir du texte - Conversion de texte',
+            description: 'Conversion de texte entre minuscules et majuscules, texte inversé, à l\'envers, texte audio, compteur de lettres et bien plus encore.'
         }
     }
 

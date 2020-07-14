@@ -1,4 +1,4 @@
-let vue = new Vue({
+let vueConvertextoComponent = new Vue({
     el: '#quantidade-caracteres',
     data: {
         text: '',

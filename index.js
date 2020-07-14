@@ -2,6 +2,13 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
 app.use(express.static('public'))
+app.locals.projectURL = function() {
+    if (app.settings.env == 'development'){
+        return 'localhost:3000';
+    } else {
+        return 'http://convertexto.com';
+    }
+}();
 const port = 3000
 nunjucks.configure('views', {
     autoescape: true,
@@ -25,6 +32,10 @@ app.set('trust proxy', true);
 app.use(wwwRedirect);
 app.set('views', './views')
 
+app.get('/gera-e-valida-cpf', (req, res) => {
+    return res.render('pt-br/cpf.html', { language: languages.pt })
+});
+
 app.get('/:country?', (req, res) => {
     if(req.params.country){
         let pais = req.params.country
@@ -32,9 +43,9 @@ app.get('/:country?', (req, res) => {
             return el == pais
         });
         if(countryText.length >= 1){
-            return res.render(pais+'/main.html', { language: languages[countryText]})
+            return res.render(pais+'/main.html', { language: languages[countryText] })
         }
     }
-    return res.render('main.html', { language: languages.pt})
+    return res.render('pt-br/main.html', { language: languages.pt})
 });
 app.listen(port, () => console.log(`Convertexto listening at http://localhost:${port}`))

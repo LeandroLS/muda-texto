@@ -2,8 +2,9 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
 app.use(express.static('public'))
+
 app.locals.projectURL = function() {
-    if (app.settings.env == 'development'){
+    if (process.env.AMBIENTE == 'development'){
         return 'localhost:3000';
     } else {
         return 'http://convertexto.com';
@@ -17,7 +18,6 @@ nunjucks.configure('views', {
 function wwwRedirect(req, res, next) {
     if(process.env.AMBIENTE == 'production'){
         let host = req.headers.host;
-        console.log(req.protocol);
         if (host.slice(0, 4) === 'www.' && (req.protocol === 'http' || req.protocol === 'https')) {
             let newHost = host.slice(4);
             return res.redirect(301, 'https://' + newHost + req.originalUrl);

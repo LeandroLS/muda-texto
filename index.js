@@ -2,21 +2,21 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const app = express()
 app.use(express.static('public'))
-
-app.locals.projectURL = function() {
+let inDevelopment = function(){
     if (process.env.AMBIENTE == 'development'){
-        return 'localhost:3000';
+        return true;
     } else {
-        return 'convertexto.com';
+        return false;
     }
 }();
+app.locals.projectURL = inDevelopment ? 'localhost:3000' : 'convertexto.com';
 const port = 3000
 nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
 function wwwRedirect(req, res, next) {
-    if(process.env.AMBIENTE == 'production'){
+    if(!inDevelopment){
         let host = req.headers.host;
         if (host.slice(0, 4) === 'www.' && (req.protocol === 'http' || req.protocol === 'https')) {
             let newHost = host.slice(4);
@@ -43,9 +43,9 @@ app.get('/:country?', (req, res) => {
             return el == pais
         });
         if(countryText.length >= 1){
-            return res.render(pais+'/main.html', { language: languages[countryText] })
+            return res.render(pais+'/index.html', { language: languages[countryText] })
         }
     }
-    return res.render('pt-br/main.html', { language: languages.pt})
+    return res.render('pt-br/index.html', { language: languages.pt})
 });
 app.listen(port, () => console.log(`Convertexto listening at http://localhost:${port}`))

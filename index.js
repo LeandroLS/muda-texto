@@ -7,7 +7,7 @@ app.locals.projectURL = function() {
     if (process.env.AMBIENTE == 'development'){
         return 'localhost:3000';
     } else {
-        return 'http://convertexto.com';
+        return 'convertexto.com';
     }
 }();
 const port = 3000

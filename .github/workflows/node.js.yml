@@ -19,4 +19,4 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
-    - run: console.log('teste2')
+    - run: npm install
